@@ -1,0 +1,40 @@
+<?php
+
+$getCurrent = $block->getLayout()->createBlock('Nailalliance\OpenGraphTags\Block\GetCurrent');
+
+$currentUrl = $getCurrent->getCurrentUrl();
+$baseUrl = $getCurrent->getBaseUrl();
+
+$currentCategory = $getCurrent->getCurrentCategory();
+$categoryName = $currentCategory->getName();
+$categoryImage = substr($baseUrl, 0, -1) . $currentCategory->getImageUrl();
+$categoryDescription = $currentCategory->getDescription();
+
+$locale = "";
+
+switch ($baseUrl) {
+    case "https://nailtechsupply.com/":
+        $locale = "en_US";
+        break;
+    case "http://upgrade.nailtechsupply.com/":
+        $locale = "en_US";
+        break;
+    case "https://gelishmorgantaylor.co.uk/":
+        $locale = "en_GB";
+        break;
+}
+
+?>
+
+<meta property="og:locale" content="<?= $locale ?>" />
+<meta property="og:type" content="product_category" />
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:domain" content="<?= str_replace("https://", "", $baseUrl) ?>">
+<meta property="twitter:url" content="<?= $currentUrl ?>">
+<meta name="twitter:title" content="<?= $categoryName ?>">
+<?php if (isset($categoryDescription)) : ?>
+    <meta name="twitter:description" content="<?= strip_tags($categoryDescription) ?>">
+<?php endif; ?>
+<?php if ($categoryImage !== substr($baseUrl, 0, -1)) : ?>
+    <meta name="twitter:image" content="<?= $categoryImage ?>">
+<?php endif; ?>

@@ -1,0 +1,31 @@
+<?php
+
+$getCurrent = $block->getLayout()->createBlock('Nailalliance\OpenGraphTags\Block\GetCurrent');
+
+$currentUrl = $getCurrent->getCurrentUrl();
+$baseUrl = $getCurrent->getBaseUrl();
+
+$pageTitle = $getCurrent->getPageTitle();
+
+$locale = "";
+
+switch ($baseUrl) {
+    case "https://nailtechsupply.com/":
+        $locale = "en_US";
+        break;
+    case "http://upgrade.nailtechsupply.com/":
+        $locale = "en_US";
+        break;
+    case "https://gelishmorgantaylor.co.uk/":
+        $locale = "en_GB";
+        break;
+}
+
+?>
+
+<meta property="og:locale" content="<?= $locale ?>" />
+<meta property="og:type" content="website_page" />
+<meta name="twitter:card" content="summary">
+<meta property="twitter:domain" content="<?= str_replace("https://", "", $baseUrl) ?>">
+<meta property="twitter:url" content="<?= $currentUrl ?>">
+<meta name="twitter:title" content="<?= $pageTitle ?>">
